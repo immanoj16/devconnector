@@ -28,8 +28,8 @@ router.post('/register', (req, res) => {
   }
 
   User.findOne({
-      email: req.body.email
-    })
+    email: req.body.email
+  })
     .then(user => {
       if (user) {
         errors.email = 'Email already exists';
@@ -63,7 +63,7 @@ router.post('/register', (req, res) => {
 });
 
 /**
- * @route   GET /api/users/login
+ * @route   POST /api/users/login
  * @desc    login user / Returning JWT token
  * @acess   Public
  */
@@ -84,8 +84,8 @@ router.post('/login', (req, res) => {
 
   // Find user by email
   User.findOne({
-      email
-    })
+    email
+  })
     .then(user => {
       // User check
       if (!user) {
