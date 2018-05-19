@@ -154,7 +154,32 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (r
         user: req.user.id
       };
 
-      post.comment.unshift(newComment);
+      post.comments.unshift(newComment);
+
+      post.save()
+        .then(post => res.json(post));
+    })
+    .catch(err => res.status(404).json({ postnofound: 'No post found' }));
+});
+
+/**
+ * @route   DELETE /api/posts/comment/:id/:comment_id
+ * @desc    delete a comment of a post
+ * @acess   Private
+ */
+router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+  Post.findById(req.params.id)
+    .then(post => {
+
+      if (post.comments.filter(comment => comment._id.toString() === req.params.comment_id).length === 0) {
+        req.status(404).json({ commentnotexist: 'Comment does not exist' })
+      }
+
+      const removeIndex = post.comments.map(comment => comment._id.toString())
+        .indexOf(req.params.comment_id);
+
+      post.comments.splice(removeIndex, 1);
 
       post.save()
         .then(post => res.json(post));
