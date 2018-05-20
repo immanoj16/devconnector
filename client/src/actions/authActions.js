@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-import { GET_ERRORS } from './types';
+import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
 export const registerUser = (user, history) => dispatch => {
@@ -35,4 +35,11 @@ export const loginUser = user => dispatch => {
         payload: err.response.data
       })
     })
+}
+
+export const setCurrentUser = decoded => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: decoded
+  }
 }

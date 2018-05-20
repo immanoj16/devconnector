@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { registerUser } from '../../actions/authActions';
 
@@ -123,4 +122,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(mapStateToProps, { registerUser })(Register);
