@@ -13,15 +13,6 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 /**
- * @route   GET /api/profile/test
- * @desc    Test the Profile
- * @acess   Public
- */
-router.get('/test', (req, res) => res.json({
-  msg: 'profile work'
-}));
-
-/**
  * @route   GET /api/profile
  * @desc    Get user profile
  * @acess   Private

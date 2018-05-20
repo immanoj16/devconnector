@@ -117,7 +117,7 @@ router.post('/login', (req, res) => {
             return res.status(400).json(errors);
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
     })
     .catch(err => console.log(err))
 });
