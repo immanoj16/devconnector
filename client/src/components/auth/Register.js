@@ -34,6 +34,12 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
   }
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -55,7 +61,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input type="text"
                     value={this.state.name}
-                    className={classnames('form-control form-control-lg', {
+                    className={classnames('form-control form-control-md', {
                       'is-invalid': errors.name
                     })}
                     placeholder="Name"
@@ -67,7 +73,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input type="email"
                     value={this.state.email}
-                    className={classnames('form-control form-control-lg', {
+                    className={classnames('form-control form-control-md', {
                       'is-invalid': errors.email
                     })}
                     placeholder="Email Address"
@@ -80,7 +86,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input type="password"
                     value={this.state.password}
-                    className={classnames('form-control form-control-lg', {
+                    className={classnames('form-control form-control-md', {
                       'is-invalid': errors.password
                     })}
                     placeholder="Password"
@@ -92,7 +98,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input type="password"
                     value={this.state.password2}
-                    className={classnames('form-control form-control-lg', {
+                    className={classnames('form-control form-control-md', {
                       'is-invalid': errors.password2
                     })}
                     placeholder="Confirm Password"
@@ -118,6 +124,7 @@ Register.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth,
     errors: state.errors
   }
 }
