@@ -120,7 +120,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
   // Skills - Split into array
   if (typeof req.body.skills !== 'undefined') {
-    profileFields.skills = req.body.skills.split(',').trim();
+    profileFields.skills = req.body.skills.split(',');
   }
 
   // Social
@@ -273,9 +273,9 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
  * @acess   Private
  */
 router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Profile.findByIdAndRemove({ user: req.user.id })
+  Profile.findOneAndRemove({ user: req.user.id })
     .then(() => {
-      User.findByIdAndRemove({ _id: req.user.id })
+      User.findOneAndRemove({ _id: req.user.id })
         .then(() => res.json({ success: true }))
         .catch(err => res.json(400).json(err))
     })
